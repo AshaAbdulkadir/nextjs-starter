@@ -23,6 +23,18 @@ export default function RecentMissions({ missions }: { missions: Mission[] }) {
         </p>
       </div>
 
+      {recent.length === 0 && (
+        <div className="mt-6 rounded-2xl border border-dashed border-[color:var(--border)] bg-[color:var(--panel)]/50 p-10 text-center">
+          <p className="text-3xl" aria-hidden>
+            🛸
+          </p>
+          <p className="mt-3 text-sm text-[color:var(--muted)]">
+            No missions logged yet — the flight computer is empty. Brief your
+            first mission below to get it on the board.
+          </p>
+        </div>
+      )}
+
       <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {recent.map((m) => {
           const status = STATUS_STYLES[m.status];

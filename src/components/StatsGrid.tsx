@@ -1,7 +1,13 @@
 import type { Mission } from "@/lib/missions";
 import { summarize } from "@/lib/missions";
 
-export default function StatsGrid({ missions }: { missions: Mission[] }) {
+export default function StatsGrid({
+  missions,
+  crewCount,
+}: {
+  missions: Mission[];
+  crewCount: number;
+}) {
   const s = summarize(missions);
 
   const stats = [
@@ -36,10 +42,16 @@ export default function StatsGrid({ missions }: { missions: Mission[] }) {
       hint: `of ${s.totalXp} XP available`,
     },
     {
+      label: "Launch Crew",
+      value: String(crewCount),
+      accent: "text-amber-200",
+      hint: "Unique crew members enlisted",
+    },
+    {
       label: "Final Boss Progress",
       value: `${s.finalBossProgress}%`,
       accent: "text-rose-300",
-      hint: "XP banked toward the crown",
+      hint: "Missions launched vs total",
     },
   ];
 
@@ -50,7 +62,7 @@ export default function StatsGrid({ missions }: { missions: Mission[] }) {
         <span>COMMAND DECK // LIVE TELEMETRY</span>
       </div>
 
-      <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+      <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
         {stats.map((stat) => (
           <div
             key={stat.label}
@@ -74,7 +86,7 @@ export default function StatsGrid({ missions }: { missions: Mission[] }) {
             👑 Final Boss Progress
           </p>
           <p className="text-xs mono text-[color:var(--muted)]">
-            {s.earnedXp} / {s.totalXp} XP · defeat the boss at 100%
+            {s.launched} of {s.total} missions launched · defeat the boss at 100%
           </p>
         </div>
         <div

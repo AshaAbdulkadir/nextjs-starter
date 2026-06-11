@@ -1,7 +1,11 @@
 import { ACHIEVEMENTS } from "@/lib/missions";
 
-export default function Achievements() {
-  const unlocked = ACHIEVEMENTS.filter((a) => a.unlocked).length;
+export default function Achievements({ dbConnected }: { dbConnected: boolean }) {
+  // The Database Connected badge unlocks for real once Neon is wired up.
+  const badges = ACHIEVEMENTS.map((a) =>
+    a.title === "Database Connected" ? { ...a, unlocked: dbConnected } : a,
+  );
+  const unlocked = badges.filter((a) => a.unlocked).length;
 
   return (
     <section id="achievements" className="mx-auto max-w-6xl scroll-mt-16 px-6 py-12">
@@ -14,12 +18,12 @@ export default function Achievements() {
           <h2 className="mt-2 text-2xl sm:text-3xl font-semibold">Achievements</h2>
         </div>
         <p className="hidden text-xs mono text-[color:var(--muted)] sm:block">
-          {unlocked} of {ACHIEVEMENTS.length} unlocked
+          {unlocked} of {badges.length} unlocked
         </p>
       </div>
 
       <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-        {ACHIEVEMENTS.map((a) => (
+        {badges.map((a) => (
           <div
             key={a.id}
             className={`rounded-2xl border p-5 text-center ${

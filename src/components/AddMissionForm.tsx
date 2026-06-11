@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import {
   DIFFICULTIES,
@@ -30,22 +31,49 @@ const EMPTY: FormState = {
   notes: "",
 };
 
+type Feedback = { kind: "success" | "error"; text: string };
+
 export default function AddMissionForm() {
+  const router = useRouter();
   const [form, setForm] = useState<FormState>(EMPTY);
-  const [confirmed, setConfirmed] = useState<string | null>(null);
+  const [feedback, setFeedback] = useState<Feedback | null>(null);
+  const [saving, setSaving] = useState(false);
 
   function update<K extends keyof FormState>(key: K, value: FormState[K]) {
     setForm((f) => ({ ...f, [key]: value }));
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!form.name.trim()) return;
-    // Front-end only for phase one — log to console and show a confirmation.
-    console.log("New mission (front-end only):", form);
-    setConfirmed(form.name.trim());
-    setForm(EMPTY);
-    setTimeout(() => setConfirmed(null), 4000);
+    if (!form.name.trim() || saving) return;
+    setSaving(true);
+    setFeedback(null);
+
+    try {
+      const res = await fetch("/api/missions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, xp: Number(form.xp) || 0 }),
+      });
+      const data = await res.json();
+
+      if (data.ok) {
+        setFeedback({ kind: "success", text: data.message });
+        setForm(EMPTY);
+        // Re-fetch the server-rendered page so the dashboard counters
+        // and mission log update with the new database row.
+        router.refresh();
+      } else {
+        setFeedback({ kind: "error", text: data.message });
+      }
+    } catch {
+      setFeedback({
+        kind: "error",
+        text: "Lost contact with mission control — check your connection and try again.",
+      });
+    } finally {
+      setSaving(false);
+    }
   }
 
   return (
@@ -58,8 +86,8 @@ export default function AddMissionForm() {
 
         <h2 className="mt-3 text-2xl sm:text-3xl font-semibold">Add Mission</h2>
         <p className="mt-1 text-sm text-[color:var(--muted)]">
-          Brief a new cloud mission. Saved locally for now — database wiring
-          lands in phase two.
+          Brief a new cloud mission. Entries are stored in Neon Postgres and
+          appear in the mission log instantly.
         </p>
 
         <form
@@ -161,20 +189,30 @@ export default function AddMissionForm() {
           </div>
 
           <div className="sm:col-span-2 flex flex-wrap items-center justify-between gap-3 pt-2">
-            <p className="text-xs mono text-[color:var(--muted)]">
-              {confirmed ? (
-                <span className="text-emerald-300">
-                  ✓ Mission briefed: <strong>{confirmed}</strong>
+            <p className="text-xs mono">
+              {feedback ? (
+                <span
+                  className={
+                    feedback.kind === "success"
+                      ? "text-emerald-300"
+                      : "text-rose-300"
+                  }
+                >
+                  {feedback.kind === "success" ? "✓ " : "✗ "}
+                  {feedback.text}
                 </span>
               ) : (
-                <>No database connected. Submissions stay in your browser session.</>
+                <span className="text-[color:var(--muted)]">
+                  Missions are saved to Neon Postgres and persist forever.
+                </span>
               )}
             </p>
             <button
               type="submit"
-              className="rounded-full bg-cyan-400 px-5 py-2.5 text-sm font-medium text-slate-950 transition-colors hover:bg-cyan-300 focus:outline-none focus:ring-2 focus:ring-cyan-300/60"
+              disabled={saving}
+              className="rounded-full bg-cyan-400 px-5 py-2.5 text-sm font-medium text-slate-950 transition-colors hover:bg-cyan-300 focus:outline-none focus:ring-2 focus:ring-cyan-300/60 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              🚀 Launch Mission
+              {saving ? "Transmitting…" : "🚀 Launch Mission"}
             </button>
           </div>
         </form>

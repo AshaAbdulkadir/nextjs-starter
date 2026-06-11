@@ -117,9 +117,11 @@ export function summarize(missions: Mission[]) {
     preview: preview.length,
     totalXp,
     earnedXp,
-    // % of all available XP already banked by launched missions.
+    // % of all missions that have launched — beat the boss at 100%.
     finalBossProgress:
-      totalXp === 0 ? 0 : Math.round((earnedXp / totalXp) * 100),
+      missions.length === 0
+        ? 0
+        : Math.round((launched.length / missions.length) * 100),
   };
 }
 
