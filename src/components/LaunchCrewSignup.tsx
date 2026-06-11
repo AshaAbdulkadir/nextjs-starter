@@ -17,8 +17,8 @@ export default function LaunchCrewSignup() {
   }
 
   return (
-    <section className="mx-auto max-w-6xl px-6 py-12">
-      <div className="relative overflow-hidden rounded-2xl border border-[color:var(--border)] bg-gradient-to-br from-[color:var(--panel)] to-[color:var(--panel-2)] p-8 sm:p-10">
+    <section id="crew" className="mx-auto max-w-6xl scroll-mt-8 px-6 py-12">
+      <div className="glow-card relative overflow-hidden rounded-2xl border border-[color:var(--border)] bg-gradient-to-br from-[color:var(--panel)] to-[color:var(--panel-2)] p-8 sm:p-10">
         <div className="absolute inset-0 grid-bg opacity-40" aria-hidden />
         <div className="relative flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
           <div className="max-w-xl">
@@ -30,8 +30,9 @@ export default function LaunchCrewSignup() {
               Join the Launch Crew
             </h2>
             <p className="mt-2 text-sm text-[color:var(--muted)]">
-              Get mission updates, build notes, and deployment recaps in your inbox.
-              No spam — just signal.
+              Get mission updates, build notes, and deployment recaps in your
+              inbox. No spam — just signal.{" "}
+              <span className="mono text-amber-300">+50 XP for enlisting.</span>
             </p>
           </div>
 

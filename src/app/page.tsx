@@ -1,3 +1,4 @@
+import Achievements from "@/components/Achievements";
 import AddMissionForm from "@/components/AddMissionForm";
 import DeploymentWorkflow from "@/components/DeploymentWorkflow";
 import Footer from "@/components/Footer";
@@ -13,6 +14,7 @@ export default function Home() {
       <Hero />
       <StatsGrid missions={SAMPLE_MISSIONS} />
       <RecentMissions missions={SAMPLE_MISSIONS} />
+      <Achievements />
       <AddMissionForm />
       <DeploymentWorkflow />
       <LaunchCrewSignup />
