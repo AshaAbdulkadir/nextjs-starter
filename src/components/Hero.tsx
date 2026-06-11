@@ -12,6 +12,9 @@ export default function Hero() {
             <span className="inline-flex items-center gap-1.5 rounded-full border border-rose-400/40 bg-rose-400/10 px-3 py-1 text-xs mono text-rose-200 glow-boss">
               👑 FINAL BOSS EDITION
             </span>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-sky-400/40 bg-sky-400/10 px-3 py-1 text-xs mono text-sky-200">
+              🔭 PREVIEW DEPLOYMENT TEST
+            </span>
             <span className="flex items-center gap-2 text-xs mono text-[color:var(--muted)]">
               <span className="inline-block h-2 w-2 rounded-full bg-emerald-400 pulse-dot" />
               SYS ONLINE · CREW: YOU 🧑‍🚀
@@ -30,6 +33,10 @@ export default function Hero() {
           <p className="mt-5 max-w-xl text-lg sm:text-xl text-[color:var(--muted)]">
             Launch cloud missions. Track deployments. Level up your
             engineering skills.
+          </p>
+          <p className="mt-3 inline-block rounded-lg border border-sky-400/25 bg-sky-400/5 px-3 py-2 text-xs mono text-sky-200/90">
+            🌿 This feature was created on a GitHub branch and previewed in
+            Vercel before production.
           </p>
 
           <div className="mt-8 flex flex-wrap gap-3">

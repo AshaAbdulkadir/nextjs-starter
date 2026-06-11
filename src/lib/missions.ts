@@ -53,14 +53,16 @@ export const SAMPLE_MISSIONS: Mission[] = [
   },
   {
     id: "m-003",
-    name: "Launch Road Trip Rush",
+    name: "Road Trip Rush Deployment",
     platform: "Vercel",
-    status: "In Progress",
+    status: "Testing",
     difficulty: "Final Boss",
     xp: 500,
     notes:
-      "The big one. Ship the full game with daily challenges, achievements, and ghost cars to production.",
-    updatedAt: "2026-06-10",
+      "AI-assisted browser game prepared for cloud deployment and live player testing.",
+    // Placeholder until the game goes live.
+    deploymentUrl: "https://road-trip-rush.vercel.app",
+    updatedAt: "2026-06-11",
   },
   {
     id: "m-004",
@@ -73,6 +75,18 @@ export const SAMPLE_MISSIONS: Mission[] = [
       "Open a feature branch PR and verify the Vercel preview deployment before merging.",
     deploymentUrl: "https://ccc-git-feat-preview.vercel.app",
     updatedAt: "2026-06-09",
+  },
+  {
+    id: "m-006",
+    name: "Preview Branch Test",
+    platform: "Vercel",
+    status: "Testing",
+    difficulty: "Medium",
+    xp: 100,
+    notes:
+      "Demonstrate the preview pipeline: push a feature branch, let Vercel build it, and review the preview URL.",
+    deploymentUrl: "https://nextjs-starter-git-feature-final-boss-preview.vercel.app",
+    updatedAt: "2026-06-11",
   },
   {
     id: "m-005",
@@ -93,6 +107,8 @@ export function summarize(missions: Mission[]) {
   const active = missions.filter(
     (m) => m.status === "In Progress" || m.status === "Testing",
   );
+  // Missions currently running on a Vercel preview deployment.
+  const preview = missions.filter((m) => m.status === "Testing");
   const totalXp = missions.reduce((sum, m) => sum + m.xp, 0);
   const earnedXp = launched.reduce((sum, m) => sum + m.xp, 0);
 
@@ -100,11 +116,14 @@ export function summarize(missions: Mission[]) {
     total: missions.length,
     active: active.length,
     launched: launched.length,
+    preview: preview.length,
     totalXp,
     earnedXp,
-    // % of all available XP already banked by launched missions.
+    // % of all missions that have launched — beat the boss at 100%.
     finalBossProgress:
-      totalXp === 0 ? 0 : Math.round((earnedXp / totalXp) * 100),
+      missions.length === 0
+        ? 0
+        : Math.round((launched.length / missions.length) * 100),
   };
 }
 

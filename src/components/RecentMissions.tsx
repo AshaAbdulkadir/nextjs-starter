@@ -7,7 +7,7 @@ export default function RecentMissions({ missions }: { missions: Mission[] }) {
     .slice(0, 6);
 
   return (
-    <section id="missions" className="mx-auto max-w-6xl scroll-mt-8 px-6 py-12">
+    <section id="missions" className="mx-auto max-w-6xl scroll-mt-16 px-6 py-12">
       <div className="flex items-end justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 text-xs mono text-[color:var(--muted)]">
@@ -22,6 +22,18 @@ export default function RecentMissions({ missions }: { missions: Mission[] }) {
           {recent.length} of {missions.length} shown
         </p>
       </div>
+
+      {recent.length === 0 && (
+        <div className="mt-6 rounded-2xl border border-dashed border-[color:var(--border)] bg-[color:var(--panel)]/50 p-10 text-center">
+          <p className="text-3xl" aria-hidden>
+            🛸
+          </p>
+          <p className="mt-3 text-sm text-[color:var(--muted)]">
+            No missions logged yet — the flight computer is empty. Brief your
+            first mission below to get it on the board.
+          </p>
+        </div>
+      )}
 
       <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {recent.map((m) => {

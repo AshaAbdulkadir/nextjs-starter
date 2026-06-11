@@ -1,23 +1,50 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function LaunchCrewSignup() {
-  const [email, setEmail] = useState("");
-  const [joined, setJoined] = useState(false);
+type Feedback = { kind: "success" | "error"; text: string };
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+export default function LaunchCrewSignup() {
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [feedback, setFeedback] = useState<Feedback | null>(null);
+  const [sending, setSending] = useState(false);
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!email.includes("@")) return;
-    // Front-end only — no email is actually sent or stored.
-    console.log("Launch crew signup (front-end only):", email);
-    setJoined(true);
-    setEmail("");
-    setTimeout(() => setJoined(false), 5000);
+    if (!email.includes("@") || sending) return;
+    setSending(true);
+    setFeedback(null);
+
+    try {
+      const res = await fetch("/api/crew", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      const data = await res.json();
+
+      if (data.ok) {
+        setFeedback({ kind: "success", text: data.message });
+        setEmail("");
+        // Refresh so the Launch Crew counter on the dashboard updates.
+        router.refresh();
+      } else {
+        setFeedback({ kind: "error", text: data.message });
+      }
+    } catch {
+      setFeedback({
+        kind: "error",
+        text: "Lost contact with mission control — check your connection and try again.",
+      });
+    } finally {
+      setSending(false);
+    }
   }
 
   return (
-    <section id="crew" className="mx-auto max-w-6xl scroll-mt-8 px-6 py-12">
+    <section id="crew" className="mx-auto max-w-6xl scroll-mt-16 px-6 py-12">
       <div className="glow-card relative overflow-hidden rounded-2xl border border-[color:var(--border)] bg-gradient-to-br from-[color:var(--panel)] to-[color:var(--panel-2)] p-8 sm:p-10">
         <div className="absolute inset-0 grid-bg opacity-40" aria-hidden />
         <div className="relative flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
@@ -50,16 +77,22 @@ export default function LaunchCrewSignup() {
             />
             <button
               type="submit"
-              className="rounded-full bg-amber-400 px-5 py-2.5 text-sm font-medium text-slate-950 transition-colors hover:bg-amber-300"
+              disabled={sending}
+              className="rounded-full bg-amber-400 px-5 py-2.5 text-sm font-medium text-slate-950 transition-colors hover:bg-amber-300 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              Join Crew
+              {sending ? "Enlisting…" : "Join Crew"}
             </button>
           </form>
         </div>
 
-        {joined && (
-          <p className="relative mt-4 text-xs mono text-emerald-300">
-            ✓ You&apos;re on the launch crew (demo only — no email stored).
+        {feedback && (
+          <p
+            className={`relative mt-4 text-xs mono ${
+              feedback.kind === "success" ? "text-emerald-300" : "text-rose-300"
+            }`}
+          >
+            {feedback.kind === "success" ? "✓ " : "✗ "}
+            {feedback.text}
           </p>
         )}
       </div>
