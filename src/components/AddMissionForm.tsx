@@ -49,7 +49,7 @@ export default function AddMissionForm() {
   }
 
   return (
-    <section id="add-mission" className="mx-auto max-w-6xl scroll-mt-8 px-6 py-12">
+    <section id="add-mission" className="mx-auto max-w-6xl scroll-mt-16 px-6 py-12">
       <div className="glow-card rounded-2xl border border-[color:var(--border)] bg-[color:var(--panel)]/80 p-6 sm:p-8">
         <div className="flex items-center gap-2 text-xs mono text-[color:var(--muted)]">
           <span className="inline-block h-2 w-2 rounded-full bg-cyan-400 pulse-dot" />

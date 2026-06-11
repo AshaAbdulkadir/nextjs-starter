@@ -24,6 +24,12 @@ export default function StatsGrid({ missions }: { missions: Mission[] }) {
       hint: "Live in production",
     },
     {
+      label: "Preview Missions",
+      value: String(s.preview),
+      accent: "text-sky-300",
+      hint: "On Vercel preview URLs",
+    },
+    {
       label: "Total XP",
       value: `${s.earnedXp}`,
       accent: "text-violet-300",
@@ -38,13 +44,13 @@ export default function StatsGrid({ missions }: { missions: Mission[] }) {
   ];
 
   return (
-    <section id="dashboard" className="mx-auto max-w-6xl scroll-mt-8 px-6 py-12">
+    <section id="dashboard" className="mx-auto max-w-6xl scroll-mt-16 px-6 py-12">
       <div className="flex items-center gap-2 text-xs mono text-[color:var(--muted)]">
         <span className="inline-block h-2 w-2 rounded-full bg-cyan-400 pulse-dot" />
         <span>COMMAND DECK // LIVE TELEMETRY</span>
       </div>
 
-      <div className="mt-4 grid grid-cols-2 gap-4 lg:grid-cols-5">
+      <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
         {stats.map((stat) => (
           <div
             key={stat.label}

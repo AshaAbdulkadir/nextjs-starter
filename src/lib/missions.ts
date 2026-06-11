@@ -75,6 +75,18 @@ export const SAMPLE_MISSIONS: Mission[] = [
     updatedAt: "2026-06-09",
   },
   {
+    id: "m-006",
+    name: "Preview Branch Test",
+    platform: "Vercel",
+    status: "Testing",
+    difficulty: "Medium",
+    xp: 100,
+    notes:
+      "Demonstrate the preview pipeline: push a feature branch, let Vercel build it, and review the preview URL.",
+    deploymentUrl: "https://nextjs-starter-git-feature-final-boss-preview.vercel.app",
+    updatedAt: "2026-06-11",
+  },
+  {
     id: "m-005",
     name: "Build Azure Jump Box Lab",
     platform: "Azure",
@@ -93,6 +105,8 @@ export function summarize(missions: Mission[]) {
   const active = missions.filter(
     (m) => m.status === "In Progress" || m.status === "Testing",
   );
+  // Missions currently running on a Vercel preview deployment.
+  const preview = missions.filter((m) => m.status === "Testing");
   const totalXp = missions.reduce((sum, m) => sum + m.xp, 0);
   const earnedXp = launched.reduce((sum, m) => sum + m.xp, 0);
 
@@ -100,6 +114,7 @@ export function summarize(missions: Mission[]) {
     total: missions.length,
     active: active.length,
     launched: launched.length,
+    preview: preview.length,
     totalXp,
     earnedXp,
     // % of all available XP already banked by launched missions.

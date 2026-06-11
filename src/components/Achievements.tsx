@@ -4,7 +4,7 @@ export default function Achievements() {
   const unlocked = ACHIEVEMENTS.filter((a) => a.unlocked).length;
 
   return (
-    <section className="mx-auto max-w-6xl px-6 py-12">
+    <section id="achievements" className="mx-auto max-w-6xl scroll-mt-16 px-6 py-12">
       <div className="flex items-end justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 text-xs mono text-[color:var(--muted)]">
