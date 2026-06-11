@@ -37,7 +37,7 @@ export const SAMPLE_MISSIONS: Mission[] = [
     xp: 100,
     notes:
       "First mission: scaffold a clean Next.js app and ship it to production from main.",
-    deploymentUrl: "https://nextjs-starter.vercel.app",
+    deploymentUrl: "https://nextjs-starter-kohl.vercel.app",
     updatedAt: "2026-06-07",
   },
   {
@@ -61,7 +61,7 @@ export const SAMPLE_MISSIONS: Mission[] = [
     notes:
       "AI-assisted browser game prepared for cloud deployment and live player testing.",
     // Placeholder until the game goes live.
-    deploymentUrl: "https://road-trip-rush.vercel.app",
+    deploymentUrl: "https://github.com/AshaAbdulkadir/road-trip-rush",
     updatedAt: "2026-06-11",
   },
   {
@@ -73,7 +73,7 @@ export const SAMPLE_MISSIONS: Mission[] = [
     xp: 150,
     notes:
       "Open a feature branch PR and verify the Vercel preview deployment before merging.",
-    deploymentUrl: "https://ccc-git-feat-preview.vercel.app",
+    deploymentUrl: "https://github.com/AshaAbdulkadir/nextjs-starter/pull/1",
     updatedAt: "2026-06-09",
   },
   {
@@ -85,7 +85,7 @@ export const SAMPLE_MISSIONS: Mission[] = [
     xp: 100,
     notes:
       "Demonstrate the preview pipeline: push a feature branch, let Vercel build it, and review the preview URL.",
-    deploymentUrl: "https://nextjs-starter-git-feature-final-boss-preview.vercel.app",
+    deploymentUrl: "https://github.com/AshaAbdulkadir/nextjs-starter/pull/1",
     updatedAt: "2026-06-11",
   },
   {

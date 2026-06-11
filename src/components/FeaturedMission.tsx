@@ -7,7 +7,8 @@ const FEATURED = {
   xp: 500,
   notes:
     "AI-assisted browser game prepared for cloud deployment and live player testing.",
-  deploymentUrl: "https://road-trip-rush.vercel.app", // placeholder until live
+  // Swap to the real Vercel URL once the game is deployed.
+  deploymentUrl: "https://github.com/AshaAbdulkadir/road-trip-rush",
 };
 
 export default function FeaturedMission() {
@@ -59,8 +60,8 @@ export default function FeaturedMission() {
               rel="noopener noreferrer"
               className="inline-flex w-fit items-center gap-2 rounded-full border border-rose-400/40 bg-rose-400/10 px-6 py-3 text-sm font-medium text-rose-100 transition-colors hover:bg-rose-400/20"
             >
-              🎮 Visit Deployment
-              <span className="text-xs mono text-rose-200/70">(placeholder)</span>
+              🎮 View the Game Code
+              <span className="text-xs mono text-rose-200/70">(deploy pending)</span>
             </a>
           </div>
         </div>
