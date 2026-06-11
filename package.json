@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check-db": "node --env-file-if-exists=.env.local --env-file-if-exists=.env.development.local scripts/check-db.mjs"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",
