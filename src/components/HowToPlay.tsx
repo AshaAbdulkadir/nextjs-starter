@@ -1,9 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 // The in-app game manual. Opens as a modal from the header.
 // Closes on the X button, a click on the backdrop, or the Escape key.
+// The modal is rendered into <body> with a portal — the header's
+// backdrop-blur would otherwise trap position:fixed inside it.
 export default function HowToPlay() {
   const [open, setOpen] = useState(false);
 
@@ -25,7 +28,8 @@ export default function HowToPlay() {
         ❓ How to Play
       </button>
 
-      {open && (
+      {open &&
+        createPortal(
         <div
           className="fixed inset-0 z-[60] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
           onClick={() => setOpen(false)}
@@ -111,13 +115,14 @@ export default function HowToPlay() {
               </section>
 
               <p className="border-t border-[color:var(--border)] pt-4 text-xs mono">
-                TIP: toggle 🎵 Focus Music in the header for lo-fi ambient
-                generated live in your browser — engineered for deep-work
-                deployment sessions.
+                TIP: toggle 🎧 Focus Beats in the header for energetic lo-fi
+                generated live in your browser — head-nod drums, warm chords,
+                engineered for high-productivity deployment sessions.
               </p>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body,
       )}
     </>
   );
