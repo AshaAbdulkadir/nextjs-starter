@@ -53,14 +53,16 @@ export const SAMPLE_MISSIONS: Mission[] = [
   },
   {
     id: "m-003",
-    name: "Launch Road Trip Rush",
+    name: "Road Trip Rush Deployment",
     platform: "Vercel",
-    status: "In Progress",
+    status: "Testing",
     difficulty: "Final Boss",
     xp: 500,
     notes:
-      "The big one. Ship the full game with daily challenges, achievements, and ghost cars to production.",
-    updatedAt: "2026-06-10",
+      "AI-assisted browser game prepared for cloud deployment and live player testing.",
+    // Placeholder until the game goes live.
+    deploymentUrl: "https://road-trip-rush.vercel.app",
+    updatedAt: "2026-06-11",
   },
   {
     id: "m-004",
