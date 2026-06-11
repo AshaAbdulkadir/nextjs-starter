@@ -1,3 +1,6 @@
+import FocusMusic from "@/components/FocusMusic";
+import HowToPlay from "@/components/HowToPlay";
+
 const LINKS = [
   { href: "#dashboard", label: "Command Deck" },
   { href: "#missions", label: "Mission Log" },
@@ -29,9 +32,13 @@ export default function Header() {
           ))}
         </nav>
 
-        <span className="flex items-center gap-2 text-xs mono text-emerald-300">
-          <span className="inline-block h-2 w-2 rounded-full bg-emerald-400 pulse-dot" />
-          <span className="hidden sm:inline">NOMINAL</span>
+        <span className="flex items-center gap-1.5">
+          <HowToPlay />
+          <FocusMusic />
+          <span className="ml-1 hidden items-center gap-2 text-xs mono text-emerald-300 md:flex">
+            <span className="inline-block h-2 w-2 rounded-full bg-emerald-400 pulse-dot" />
+            NOMINAL
+          </span>
         </span>
       </div>
     </header>
