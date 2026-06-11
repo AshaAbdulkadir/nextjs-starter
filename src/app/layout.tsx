@@ -13,8 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Cloud Command Center",
-  description: "Track cloud missions from idea to deployment.",
+  title: "Cloud Command Center 🚀",
+  description:
+    "Mission control for your cloud projects — track every build from wild idea to live deployment.",
 };
 
 export default function RootLayout({

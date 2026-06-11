@@ -7,7 +7,7 @@ export default function RecentMissions({ missions }: { missions: Mission[] }) {
     .slice(0, 6);
 
   return (
-    <section className="mx-auto max-w-6xl px-6 py-12">
+    <section id="missions" className="mx-auto max-w-6xl scroll-mt-8 px-6 py-12">
       <div className="flex items-end justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 text-xs mono text-[color:var(--muted)]">
