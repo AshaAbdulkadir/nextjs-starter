@@ -9,39 +9,85 @@ export default function StatsGrid({
   crewCount: number;
 }) {
   const s = summarize(missions);
-  const won = s.total > 0 && s.finalBossProgress === 100;
 
   const stats = [
-    { label: "Missions", value: s.total },
-    { label: "Active", value: s.active },
-    { label: "Launched", value: s.launched },
-    { label: "XP Banked", value: s.earnedXp },
-    { label: "Launch Crew", value: crewCount },
+    {
+      label: "Total Missions",
+      value: String(s.total),
+      accent: "text-cyan-300",
+      hint: "All projects in orbit",
+    },
+    {
+      label: "Active Missions",
+      value: String(s.active),
+      accent: "text-amber-300",
+      hint: "In progress or testing",
+    },
+    {
+      label: "Launched Missions",
+      value: String(s.launched),
+      accent: "text-emerald-300",
+      hint: "Live in production",
+    },
+    {
+      label: "Preview Missions",
+      value: String(s.preview),
+      accent: "text-sky-300",
+      hint: "On Vercel preview URLs",
+    },
+    {
+      label: "Total XP",
+      value: `${s.earnedXp}`,
+      accent: "text-violet-300",
+      hint: `of ${s.totalXp} XP available`,
+    },
+    {
+      label: "Launch Crew",
+      value: String(crewCount),
+      accent: "text-amber-200",
+      hint: "Unique crew members enlisted",
+    },
+    {
+      label: "Final Boss Progress",
+      value: `${s.finalBossProgress}%`,
+      accent: "text-rose-300",
+      hint: "Missions launched vs total",
+    },
   ];
 
   return (
-    <section id="dashboard" className="mx-auto max-w-5xl scroll-mt-16 px-6 py-10">
-      <div className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-white/[0.08] bg-white/[0.08] sm:grid-cols-5">
+    <section id="dashboard" className="mx-auto max-w-6xl scroll-mt-16 px-6 py-12">
+      <div className="flex items-center gap-2 text-xs mono text-[color:var(--muted)]">
+        <span className="inline-block h-2 w-2 rounded-full bg-cyan-400 pulse-dot" />
+        <span>COMMAND DECK // LIVE TELEMETRY</span>
+      </div>
+
+      <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
         {stats.map((stat) => (
-          <div key={stat.label} className="bg-[#0b0d10] p-4">
+          <div
+            key={stat.label}
+            className="glow-card rounded-2xl border border-[color:var(--border)] bg-[color:var(--panel)]/80 p-5 backdrop-blur-sm"
+          >
             <p className="text-xs mono uppercase tracking-wider text-[color:var(--muted)]">
               {stat.label}
             </p>
-            <p className="mt-1 text-2xl font-semibold">{stat.value}</p>
+            <p className={`mt-3 text-3xl font-semibold sm:text-4xl ${stat.accent}`}>
+              {stat.value}
+            </p>
+            <p className="mt-1 text-xs text-[color:var(--muted)]">{stat.hint}</p>
           </div>
         ))}
       </div>
 
-      <div className="mt-4 rounded-lg border border-white/[0.08] bg-[#0b0d10] p-4">
-        <div className="flex items-center justify-between gap-3 text-xs mono">
-          <span className="uppercase tracking-wider text-[color:var(--muted)]">
-            Final Boss Progress
-          </span>
-          <span className={won ? "text-emerald-400" : "text-[color:var(--muted)]"}>
-            {won
-              ? "Boss defeated — all missions launched"
-              : `${s.launched} of ${s.total} launched · ${s.finalBossProgress}%`}
-          </span>
+      {/* Final Boss Progress bar */}
+      <div className="glow-boss mt-6 rounded-2xl border border-rose-400/25 bg-[color:var(--panel)]/80 p-5">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <p className="text-xs mono uppercase tracking-wider text-rose-200">
+            👑 Final Boss Progress
+          </p>
+          <p className="text-xs mono text-[color:var(--muted)]">
+            {s.launched} of {s.total} missions launched · defeat the boss at 100%
+          </p>
         </div>
         <div
           role="progressbar"
@@ -49,12 +95,10 @@ export default function StatsGrid({
           aria-valuenow={s.finalBossProgress}
           aria-valuemin={0}
           aria-valuemax={100}
-          className="mt-2 h-2 overflow-hidden rounded-full bg-white/[0.06]"
+          className="mt-3 h-4 overflow-hidden rounded-full border border-[color:var(--border)] bg-[color:var(--panel-2)]"
         >
           <div
-            className={`h-full rounded-full transition-all duration-700 ${
-              won ? "bg-emerald-400" : "bg-cyan-400"
-            }`}
+            className="boss-bar h-full rounded-full bg-gradient-to-r from-cyan-400 via-violet-400 to-rose-400"
             style={{ width: `${s.finalBossProgress}%` }}
           />
         </div>
