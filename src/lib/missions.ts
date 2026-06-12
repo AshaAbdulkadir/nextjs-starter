@@ -67,8 +67,7 @@ export const SAMPLE_MISSIONS: Mission[] = [
     xp: 500,
     notes:
       "AI-assisted browser game prepared for cloud deployment and live player testing.",
-    // Placeholder until the game goes live.
-    deploymentUrl: "https://github.com/AshaAbdulkadir/road-trip-rush",
+    deploymentUrl: "https://road-trip-rush.vercel.app",
     updatedAt: "2026-06-11",
   },
   {

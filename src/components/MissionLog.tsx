@@ -59,8 +59,16 @@ export default function MissionLog({
       </div>
 
       <p className="mt-3 text-xs mono text-[color:var(--muted)]">
-        Final Boss · Road Trip Rush — the game project being prepared for
-        Vercel deployment as the final stage of this assignment.{" "}
+        Final Boss · Road Trip Rush — the game project is live on Vercel as
+        the final stage of this assignment.{" "}
+        <a
+          href="https://road-trip-rush.vercel.app"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-cyan-400 hover:text-cyan-300"
+        >
+          🎮 Play it ↗
+        </a>{" "}
         <a
           href="https://github.com/AshaAbdulkadir/road-trip-rush"
           target="_blank"
