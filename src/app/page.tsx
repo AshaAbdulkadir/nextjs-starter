@@ -1,12 +1,10 @@
-import Achievements from "@/components/Achievements";
 import AddMissionForm from "@/components/AddMissionForm";
 import DeploymentWorkflow from "@/components/DeploymentWorkflow";
-import FeaturedMission from "@/components/FeaturedMission";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import LaunchCrewSignup from "@/components/LaunchCrewSignup";
-import RecentMissions from "@/components/RecentMissions";
+import MissionLog from "@/components/MissionLog";
 import StatsGrid from "@/components/StatsGrid";
 import { getDashboardData } from "@/lib/db";
 
@@ -22,15 +20,13 @@ export default async function Home() {
       <Header />
       <Hero />
       {!dbConfigured && (
-        <p className="mx-auto max-w-6xl px-6 pt-6 text-xs mono text-amber-300">
-          ⚠ Database not configured — showing sample data. Add DATABASE_URL to
-          .env.local to go live (see README).
+        <p className="mx-auto max-w-5xl px-6 pt-6 text-xs mono text-amber-300">
+          Database not configured — showing sample data. Add DATABASE_URL to
+          .env.local to play (see README).
         </p>
       )}
       <StatsGrid missions={missions} crewCount={crewCount} />
-      <FeaturedMission />
-      <RecentMissions missions={missions} />
-      <Achievements dbConnected={dbConfigured} />
+      <MissionLog missions={missions} dbConfigured={dbConfigured} />
       <AddMissionForm />
       <DeploymentWorkflow />
       <LaunchCrewSignup />

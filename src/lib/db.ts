@@ -1,6 +1,7 @@
 import { neon } from "@neondatabase/serverless";
 import {
   DIFFICULTIES,
+  NEXT_STATUS,
   PLATFORMS,
   SAMPLE_MISSIONS,
   STATUSES,
@@ -137,6 +138,27 @@ export async function insertMission(input: NewMission) {
             ${input.difficulty}, ${input.xp}, ${input.notes.trim()},
             ${input.deploymentUrl.trim()})
   `;
+}
+
+// The game move: promote a mission to its next status.
+// Returns the new status, or null if the mission is already Launched
+// (or doesn't exist).
+export async function advanceMission(id: number): Promise<string | null> {
+  await ensureTables();
+  const q = sql();
+  const rows = (await q`
+    SELECT status FROM missions WHERE id = ${id}
+  `) as { status: string }[];
+  const next = rows[0] && NEXT_STATUS[rows[0].status];
+  if (!next) return null;
+  await q`UPDATE missions SET status = ${next} WHERE id = ${id}`;
+  return next;
+}
+
+export async function deleteMission(id: number) {
+  await ensureTables();
+  const q = sql();
+  await q`DELETE FROM missions WHERE id = ${id}`;
 }
 
 // Returns true if the email was new, false if it was already enlisted.

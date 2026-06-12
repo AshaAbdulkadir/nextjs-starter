@@ -23,107 +23,77 @@ export default function HowToPlay() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="rounded-full px-3 py-1.5 text-xs mono text-[color:var(--muted)] transition-colors hover:bg-white/5 hover:text-cyan-200"
+        className="rounded-md px-3 py-1.5 text-xs mono text-[color:var(--muted)] transition-colors hover:bg-white/5 hover:text-cyan-300"
       >
-        ❓ How to Play
+        How to Play
       </button>
 
       {open &&
         createPortal(
-        <div
-          className="fixed inset-0 z-[60] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
-          onClick={() => setOpen(false)}
-        >
           <div
-            role="dialog"
-            aria-modal="true"
-            aria-label="How to play Cloud Command Center"
-            onClick={(e) => e.stopPropagation()}
-            className="glow-card max-h-[85vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-[color:var(--border)] bg-[color:var(--panel)] p-6 sm:p-8"
+            className="fixed inset-0 z-[60] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
+            onClick={() => setOpen(false)}
           >
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <div className="flex items-center gap-2 text-xs mono text-[color:var(--muted)]">
-                  <span className="inline-block h-2 w-2 rounded-full bg-cyan-400 pulse-dot" />
-                  <span>FLIGHT MANUAL // RTFM-01</span>
-                </div>
-                <h2 className="mt-2 text-2xl font-semibold">
-                  How to Play the Cloud Deployment Game 🎮
-                </h2>
+            <div
+              role="dialog"
+              aria-modal="true"
+              aria-label="How to play Cloud Command Center"
+              onClick={(e) => e.stopPropagation()}
+              className="max-h-[85vh] w-full max-w-lg overflow-y-auto rounded-lg border border-white/10 bg-[#0b0d10] p-6"
+            >
+              <div className="flex items-start justify-between gap-4">
+                <h2 className="text-lg font-semibold">How to Play</h2>
+                <button
+                  onClick={() => setOpen(false)}
+                  aria-label="Close"
+                  className="rounded-md border border-white/10 px-2 py-0.5 text-sm text-[color:var(--muted)] transition-colors hover:text-rose-300"
+                >
+                  ✕
+                </button>
               </div>
-              <button
-                onClick={() => setOpen(false)}
-                aria-label="Close"
-                className="rounded-full border border-[color:var(--border)] px-3 py-1 text-sm text-[color:var(--muted)] transition-colors hover:border-rose-400/50 hover:text-rose-200"
-              >
-                ✕
-              </button>
-            </div>
 
-            <div className="mt-5 space-y-5 text-sm leading-6 text-[color:var(--muted)]">
-              <section>
-                <h3 className="mb-1 text-sm font-semibold text-cyan-200">
-                  🛰️ 1 · Brief a mission
-                </h3>
-                <p>
-                  Every real cloud project becomes a mission. Use the{" "}
-                  <strong className="text-[color:var(--foreground)]">Add Mission</strong>{" "}
-                  form: pick the platform, set a difficulty (Easy → 👑 Final
-                  Boss), and price the bounty in XP — easy quests ~100 XP,
-                  boss fights 500. Missions are saved to the database and
-                  persist forever.
-                </p>
-              </section>
+              <ol className="mt-4 space-y-4 text-sm leading-6 text-[color:var(--muted)]">
+                <li>
+                  <strong className="text-[color:var(--foreground)]">
+                    1 · Add a mission.
+                  </strong>{" "}
+                  Every real cloud project is a mission. Give it a platform, a
+                  difficulty, and an XP value — easy ~100 XP, Final Boss 500.
+                </li>
+                <li>
+                  <strong className="text-[color:var(--foreground)]">
+                    2 · Do the work, then press Advance.
+                  </strong>{" "}
+                  Each click moves a mission one stage:{" "}
+                  <span className="mono text-xs">
+                    Queued → In Progress → Testing → Launched
+                  </span>
+                  . Every move is saved to the database.
+                </li>
+                <li>
+                  <strong className="text-[color:var(--foreground)]">
+                    3 · Bank XP.
+                  </strong>{" "}
+                  Launched missions add their XP to your total and fill the
+                  Final Boss Progress bar (launched ÷ total missions).
+                </li>
+                <li>
+                  <strong className="text-[color:var(--foreground)]">
+                    4 · Win.
+                  </strong>{" "}
+                  Launch everything — including the Final Boss mission — to
+                  reach 100%. The bar turns green: boss defeated.
+                </li>
+              </ol>
 
-              <section>
-                <h3 className="mb-1 text-sm font-semibold text-amber-200">
-                  ⚙️ 2 · Do the real engineering
-                </h3>
-                <p>
-                  The controller is your terminal: branch on GitHub, push
-                  code, test the Vercel preview. The game tracks reality —
-                  no shipping, no XP.
-                </p>
-              </section>
-
-              <section>
-                <h3 className="mb-1 text-sm font-semibold text-sky-200">
-                  📡 3 · Advance the status
-                </h3>
-                <p className="mono text-xs">
-                  Queued → In Progress → Testing → Launched
-                </p>
-                <p className="mt-1">
-                  Missions in <em>Testing</em> count as Preview Missions
-                  (they&apos;re on a preview URL). Only{" "}
-                  <strong className="text-emerald-300">Launched</strong>{" "}
-                  missions bank their XP.
-                </p>
-              </section>
-
-              <section>
-                <h3 className="mb-1 text-sm font-semibold text-rose-200">
-                  👑 4 · Defeat the Final Boss
-                </h3>
-                <p>
-                  The boss bar fills as launched missions ÷ total missions.
-                  Launch everything — including the 500 XP Final Boss — to
-                  hit 100% and win. Achievements unlock along the way, and
-                  the Launch Crew counter grows as people enlist (duplicate
-                  emails never double-count).
-                </p>
-              </section>
-
-              <p className="border-t border-[color:var(--border)] pt-4 text-xs mono">
-                TIP: toggle 🎧 Focus Beats in the header for energetic lo-fi
-                generated live in your browser — head-nod drums, warm chords,
-                engineered for high-productivity deployment sessions.
+              <p className="mt-5 border-t border-white/10 pt-4 text-xs mono text-[color:var(--muted)]">
+                Tip: Focus Beats in the header plays lo-fi generated live in
+                your browser — built for deep-work deployment sessions.
               </p>
             </div>
-          </div>
-        </div>,
-        document.body,
-      )}
+          </div>,
+          document.body,
+        )}
     </>
   );
 }

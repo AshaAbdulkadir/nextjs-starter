@@ -9,6 +9,13 @@ export const PLATFORMS = [
 
 export const STATUSES = ["Queued", "In Progress", "Testing", "Launched"] as const;
 
+// The game move: each Advance click promotes a mission one stage.
+export const NEXT_STATUS: Partial<Record<string, (typeof STATUSES)[number]>> = {
+  Queued: "In Progress",
+  "In Progress": "Testing",
+  Testing: "Launched",
+};
+
 export const DIFFICULTIES = ["Easy", "Medium", "Hard", "Final Boss"] as const;
 
 export type Platform = (typeof PLATFORMS)[number];
